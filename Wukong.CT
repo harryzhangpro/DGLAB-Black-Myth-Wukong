@@ -189,8 +189,6 @@ local function on_health_changed(memoryrecord, oldvalue, newvalue)
         return
     end
 
-    client:send(tostring(newvalue))  -- 将值发送给 Python 脚本
-
     prev_health = newvalue
     prev_max_health = var_max_health
 
@@ -199,6 +197,7 @@ local function on_health_changed(memoryrecord, oldvalue, newvalue)
             return
         end
         -- 死亡时一键开火
+        client:send(tostring(newvalue))  -- 将值发送给 Python 脚本
         print("[Event] 死亡")
         return
     elseif newvalue ~= 0 and newvalue == var_max_health and oldvalue ~= var_max_health then
@@ -215,10 +214,8 @@ local function on_health_changed(memoryrecord, oldvalue, newvalue)
     local delta = newvalue - oldvalue
     if delta &lt; 0 then
         -- 受击反馈
+        client:send(tostring(newvalue))  -- 将值发送给 Python 脚本
         print("[Event] 受击")
-        if current_time - prev_onhit_time &lt; 0.8 then -- 0.8秒内不重复触发
-            return
-        end
 
         prev_onhit_time = current_time
     end
