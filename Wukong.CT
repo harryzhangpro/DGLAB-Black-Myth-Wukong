@@ -20,7 +20,7 @@ if syntaxcheck then return end
        ShowMessage(msg)
     error()
   else
-   getMainForm().caption = "Table Created By Tuuuup, Modified By hyperzlib"
+   getMainForm().caption = "Table Created By Tuuuup, Modified By harryzhangpro"
     end
 
 {$asm}
@@ -217,7 +217,6 @@ local function on_health_changed(memoryrecord, oldvalue, newvalue)
         client:send(tostring(newvalue))  -- 将值发送给 Python 脚本
         print("[Event] 受击")
 
-        prev_onhit_time = current_time
     end
 
     local health_percent = newvalue / var_max_health * 100
