@@ -3,6 +3,14 @@
 
 Technical Support：404 Error（已匿名）
 
+## 更新日志
+
+```
+20240830 稳定性重大更新，程序不容易掉线，和电击延迟问题
+20240829 修复了回血也会被电的feature~
+20240828 第一次启用
+```
+
 ## 依赖和安装
 
 1、下载并安装[CheatEngine 7.5](https://www.cheatengine.org/downloads.php)
@@ -40,4 +48,7 @@ python .\listing.py
 
 ## Cradits
 
-感谢[Awesome-Coyote-Game-Hub](https://github.com/hyperzlib/Awesome-Coyote-Game-Hub)的启发！
+
+CE Table From: [Black Myth Wukong Item Count Pointer - FearLess Cheat Engine](https://fearlessrevolution.com/viewtopic.php?p=366846&sid=5da0337efdcda765cfc67e845eceb477#p366846)
+
+Credits: Tuuuup!

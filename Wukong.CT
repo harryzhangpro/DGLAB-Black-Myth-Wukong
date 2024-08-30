@@ -2,10 +2,11 @@
 <CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
-      <ID>357015</ID>
-      <Description>"自动选择进程"</Description>
+      <ID>356957</ID>
+      <Description>"&lt;== Enable for attach to game process "</Description>
+      <Color>0000FF</Color>
       <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>[ENABLE]
+      <AssemblerScript Async="1">[ENABLE]
 {$lua}
 if syntaxcheck then return end
   if(getCEVersion() &lt; 7.3) then
@@ -14,13 +15,13 @@ if syntaxcheck then return end
   end
   ---------------
  local pcss = 'b1-Win64-Shipping.exe'
- local msg = '进程 b1-Win64-Shipping.exe 未找到!'
+ local msg = 'The process b1-Win64-Shipping.exe is NOT found!'
  OpenProcess(pcss)
   if (readInteger(process) == readInteger(pcss)) and (readInteger(process) ~= nil) then
        ShowMessage(msg)
     error()
   else
-   getMainForm().caption = "Table Created By Tuuuup, Modified By harryzhangpro"
+   getMainForm().caption = "Table Created By Tuuuup! DGLAB by @Siling00(Same as X)"
     end
 
 {$asm}
@@ -32,18 +33,28 @@ if monopipe~=nil then monopipe.Destroy() ; monopipe=nil end  -- mono disable
 //LuaCall(cycleFullCompact(nil,false))
 
 
-
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>356991</ID>
-      <Description>"开启 (必须在出现角色后勾选)"</Description>
-      <Options moHideChildren="1"/>
-      <Color>FF8000</Color>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{ Game   : b1-Win64-Shipping.exe
-  Version:
-  Date   : 2024-08-23
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"&lt;== Compact Mode"</Description>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+LuaCall(function cycleFullCompact(sender,force) local state = not(compactmenuitem.Caption == 'Compact View Mode'); if force~=nil then state = not force end; compactmenuitem.Caption = state and 'Compact View Mode' or 'Full View Mode'; getMainForm().Splitter1.Visible = state; getMainForm().Panel4.Visible    = state; getMainForm().Panel5.Visible    = state; end; function addCompactMenu() if compactmenualreadyexists then return end; local parent = getMainForm().Menu.Items; compactmenuitem = createMenuItem(parent); parent.add(compactmenuitem); compactmenuitem.Caption = 'Compact View Mode'; compactmenuitem.OnClick = cycleFullCompact; compactmenualreadyexists = 'yes'; end; addCompactMenu(); cycleFullCompact(nil,true))
+
+[DISABLE]
+LuaCall(cycleFullCompact(nil,false))
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>358379</ID>
+          <Description>"Inject!"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript Async="1">{ Game   : b1-Win64-Shipping.exe
+  Version: 
+  Date   : 2024-08-28
   Author : Tuuup!
 
   This script does blah blah blah
@@ -51,297 +62,183 @@ if monopipe~=nil then monopipe.Destroy() ; monopipe=nil end  -- mono disable
 
 [ENABLE]
 
-aobscanmodule(playerbaseeee,$process,75 07 33 C0 E9 ? ? ? ? 49 8B 47 18 48 8B C8 48 8B D7 48 8B 00 4D 8B 15) // should be unique
-alloc(newmem,$1000,playerbaseeee)
-registersymbol(playerbaseeee pBase)
-label(code pBase)
+aobscanmodule(playerbase4,$process,488B90xxxxxxxx488B4598833800F30F104070F30F114590F30F104590833800F30F104874F30F114D90F30F104D90488BCE) // should be unique
+alloc(newmem,$1000,playerbase4)
+registersymbol(playerbase4 pbase2)
+label(code pbase2)
 label(return)
 
 newmem:
-  mov rcx,[r15+18]
-  test rcx,rcx
-  je code
-  mov rcx,[rcx+28]
-  test rcx,rcx
-  je code
-  mov rcx,[rcx+18]
-  test rcx,rcx
-  je code
-  mov rcx,[rcx+38]
-  test rcx,rcx
-  je code
-  cmp [rcx+b8],(float)9999
-  jne code
-  mov [pBase],r15
+mov rdx,[rax+000000D0]
+mov rax,[rdx+28]
+test rax,rax
+je code
+mov rax,[rax+18]
+test rax,rax
+je code
+mov rax,[rax+38]
+test rax,rax
+je code
+cmp [rax+b8],(float)9999
+jne code
+mov [pbase2],rdx
 code:
-  mov rax,[r15+18]
-  mov rcx,rax
-  jmp return
-pBase:
-dq 0
-playerbaseeee+09:
-  jmp newmem
-  nop 2
-return:
 
+jmp return
+pbase2:
+dq 0
+playerbase4:
+jmp newmem
+nop 2
+return:
 
 [DISABLE]
 
-playerbaseeee+09:
-  db 49 8B 47 18 48 8B C8
+playerbase4:
+  db 48 8B 90 D0 00 00 00
 
 unregistersymbol(*)
 dealloc(*)
 
 {
-// ORIGINAL CODE - INJECTION POINT: b1-Win64-Shipping.exe+25EF92F
+// ORIGINAL CODE - INJECTION POINT: b1-Win64-Shipping.exe+252358F
 
-b1-Win64-Shipping.exe+25EF90C: 4C 89 7D F8     - mov [rbp-08],r15
-b1-Win64-Shipping.exe+25EF910: 4C 8B F9        - mov r15,rcx
-b1-Win64-Shipping.exe+25EF913: 48 8B FA        - mov rdi,rdx
-b1-Win64-Shipping.exe+25EF916: 4C 89 45 D8     - mov [rbp-28],r8
-b1-Win64-Shipping.exe+25EF91A: F3 0F 11 5D D0  - movss [rbp-30],xmm3
-b1-Win64-Shipping.exe+25EF91F: 49 8B 47 18     - mov rax,[r15+18]
-b1-Win64-Shipping.exe+25EF923: 48 85 C0        - test rax,rax
-b1-Win64-Shipping.exe+25EF926: 75 07           - jne b1-Win64-Shipping.exe+25EF92F
-b1-Win64-Shipping.exe+25EF928: 33 C0           - xor eax,eax
-b1-Win64-Shipping.exe+25EF92A: E9 46 02 00 00  - jmp b1-Win64-Shipping.exe+25EFB75
+b1-Win64-Shipping.exe+2523566: 48 8B 4D 98           - mov rcx,[rbp-68]
+b1-Win64-Shipping.exe+252356A: 83 39 00              - cmp dword ptr [rcx],00
+b1-Win64-Shipping.exe+252356D: 0F B6 51 6C           - movzx edx,byte ptr [rcx+6C]
+b1-Win64-Shipping.exe+2523571: 48 8B C8              - mov rcx,rax
+b1-Win64-Shipping.exe+2523574: 83 38 00              - cmp dword ptr [rax],00
+b1-Win64-Shipping.exe+2523577: E8 52 DB 4A 02        - call b1-Win64-Shipping.exe+49D10CE
+b1-Win64-Shipping.exe+252357C: 48 8B F0              - mov rsi,rax
+b1-Win64-Shipping.exe+252357F: 48 85 C0              - test rax,rax
+b1-Win64-Shipping.exe+2523582: 0F 84 E5 00 00 00     - je b1-Win64-Shipping.exe+252366D
+b1-Win64-Shipping.exe+2523588: 48 8B 85 68 FF FF FF  - mov rax,[rbp-00000098]
 // ---------- INJECTING HERE ----------
-b1-Win64-Shipping.exe+25EF92F: 49 8B 47 18     - mov rax,[r15+18]
+b1-Win64-Shipping.exe+252358F: 48 8B 90 D0 00 00 00  - mov rdx,[rax+000000D0]
 // ---------- DONE INJECTING  ----------
-b1-Win64-Shipping.exe+25EF933: 48 8B C8        - mov rcx,rax
-b1-Win64-Shipping.exe+25EF936: 48 8B D7        - mov rdx,rdi
-b1-Win64-Shipping.exe+25EF939: 48 8B 00        - mov rax,[rax]
-b1-Win64-Shipping.exe+25EF93C: 4D 8B 15        - mov r10,[r13]
-b1-Win64-Shipping.exe+25EF93F: 95              - xchg eax,ebp
-b1-Win64-Shipping.exe+25EF940: 7D 48           - jnl b1-Win64-Shipping.exe+25EF98A
-b1-Win64-Shipping.exe+25EF942: 1B FF           - sbb edi,edi
-b1-Win64-Shipping.exe+25EF944: 50              - push rax
-b1-Win64-Shipping.exe+25EF945: C0 F3 0F        - rol bl,0F
-b1-Win64-Shipping.exe+25EF948: 11 45 EC        - adc [rbp-14],eax
+b1-Win64-Shipping.exe+2523596: 48 8B 45 98           - mov rax,[rbp-68]
+b1-Win64-Shipping.exe+252359A: 83 38 00              - cmp dword ptr [rax],00
+b1-Win64-Shipping.exe+252359D: F3 0F 10 40 70        - movss xmm0,[rax+70]
+b1-Win64-Shipping.exe+25235A2: F3 0F 11 45 90        - movss [rbp-70],xmm0
+b1-Win64-Shipping.exe+25235A7: F3 0F 10 45 90        - movss xmm0,[rbp-70]
+b1-Win64-Shipping.exe+25235AC: 83 38 00              - cmp dword ptr [rax],00
+b1-Win64-Shipping.exe+25235AF: F3 0F 10 48 74        - movss xmm1,[rax+74]
+b1-Win64-Shipping.exe+25235B4: F3 0F 11 4D 90        - movss [rbp-70],xmm1
+b1-Win64-Shipping.exe+25235B9: F3 0F 10 4D 90        - movss xmm1,[rbp-70]
+b1-Win64-Shipping.exe+25235BE: 48 8B CE              - mov rcx,rsi
 }
 </AssemblerScript>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>357006</ID>
-          <Description>"启动郊狼"</Description>
-          <Color>009BF9</Color>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>[ENABLE]
+          <CheatEntries>
+            <CheatEntry>
+              <ID>358643</ID>
+              <Description>"Enable DGLAB"</Description>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{  Game Executable   :
+   Author            : Harryzhangpro
+   Executable Version:
+   Script Date       :30 Aug,2024
+}
+
 {$lua}
+if syntaxcheck then return end
+if hpTimer ~= nil then
+    hpTimer.destroy()
+end
+if connectionCheckTimer ~= nil then
+    connectionCheckTimer.destroy()
+end
 
-varname_health = "生命"
+prev_hp = 0  -- 初始化prev_hp
 
-local player_id = 0
-
-local ptr_health_offset = 0x27c
-local ptr_max_health_offset = 0x24
-
-local var_max_health = 0
-local prev_health = 0
-local prev_max_health = 0
-
-local prev_onhit_time = 0
-
-local health_memoryview = nil
+[ENABLE]
 
 local socket = require("socket")
 local client = socket.tcp()
-client:connect("127.0.0.1", 10086)  -- 连接到本地 Python 脚本
+client:settimeout(0)  -- 设置非阻塞模式
 
-local function is_player_valid(player_addr)
-    if player_addr == 0 then
-        return false
+local function connectClient()
+    local success, err = client:connect("127.0.0.1", 10086)
+    if not success then
+        print("[Error] Connection failed: " .. tostring(err))
+    else
+        print("[Info] Connected to the server.")
     end
-
-    local new_player_id = readQword(player_addr)
-    if player_id ~= 0 and new_player_id ~= player_id then
-        return false
-    end
-
-    return true
 end
 
--- 监听生命值变化
-local function on_health_changed(memoryrecord, oldvalue, newvalue)
-    if not is_player_valid(memoryrecord.CurrentAddress - ptr_health_offset) then
-        return
-    end
+connectClient()
 
-    -- 防止有延迟，直接从内存读取生命值和最大生命值
-    newvalue = readFloat(memoryrecord.CurrentAddress)
-    var_max_health = readFloat(memoryrecord.CurrentAddress - ptr_health_offset + ptr_max_health_offset)
+hpTimer = createTimer()
+hpTimer.setInterval(10)
+hpTimer.onTimer = function()
 
-    oldvalue = prev_health
-    local old_max_health = prev_max_health
+    local pg = getAddressSafe('[pbase2]')
+    if pg ~= nil then
+        local pg3 = getAddressSafe('[[pbase2]+28]')
+        if pg3 ~= nil then
+            local pg4 = getAddressSafe('[[[pbase2]+28]+18]')
+            if pg4 ~= nil then
+                local pg5 = getAddressSafe('[[[[pbase2]+28]+18]+38]')
+                if pg5 ~= nil then
 
-    print("生命值: " .. oldvalue .. " -&gt; " .. newvalue)
-    print("最大生命值: " .. var_max_health)
+                    local now_hp = readFloat('[[[[pbase2]+28]+18]+38]+27C')
+                    local delta = now_hp - prev_hp
+                    prev_hp = now_hp
 
-    if var_max_health == 0 or newvalue == "??" or var_max_health == 0 or var_max_health == "??" then
-        return
-    end
-    newvalue = tonumber(newvalue) or 0
-    var_max_health = tonumber(var_max_health) or 0
-
-    if newvalue == oldvalue then
-        -- 未变化
-        return
-    end
-
-    prev_health = newvalue
-    prev_max_health = var_max_health
-
-    if newvalue == 0 and oldvalue ~= 0 then
-        if var_max_health ~= old_max_health then -- 最大生命值改变时不处理
-            return
+                    if delta &lt; 0 then
+                        local success, err = client:send("hit:" .. tostring(delta) .. "hp:" .. tostring(now_hp))  -- 尝试发送当前HP
+                        if not success then
+                            print("[Error] Send failed: " .. tostring(err))
+                            client:close()  -- 关闭当前连接
+                            client = socket.tcp()  -- 创建新客户端
+                            connectClient()  -- 尝试重新连接
+                        else
+                            print(string.format("[Event] Strike! delta %.2f now_hp %.2f", delta, now_hp))
+                        end
+                    end
+                end
+            end
         end
-        -- 死亡时一键开火
-        client:send(tostring(newvalue))  -- 将值发送给 Python 脚本
-        print("[Event] 死亡")
-        return
-    elseif newvalue ~= 0 and newvalue == var_max_health and oldvalue ~= var_max_health then
-        -- 血量回满
-        print("[Event] 血量回满")
-        createNativeThread(function()
-            sleep(coyote_fire_time_death * 1000)
-        end)
-        return
-    end
-
-    local current_time = os.time()
-
-    local delta = newvalue - oldvalue
-    if delta &lt; 0 then
-        -- 受击反馈
-        client:send(tostring(newvalue))  -- 将值发送给 Python 脚本
-        print("[Event] 受击")
-
-    end
-
-    local health_percent = newvalue / var_max_health * 100
-    local old_health_percent = oldvalue / var_max_health * 100
-
-    if old_health_percent &gt; 30 and health_percent &lt;= 30 then
-        -- 血量30以下
-        print("[Event] 血量30以下")
-    elseif old_health_percent &gt; 50 and health_percent &lt;= 50 then
-        -- 血量50以下
-        print("[Event] 血量50以下")
-    elseif old_health_percent &lt; 80 and health_percent &gt;= 80 then
-        -- 血量80以上
-        print("[Event] 血量80以上")
     end
 end
 
-local function init_listener()
-    -- 设置监听
-    health_memoryview = AddressList.getMemoryRecordByDescription(varname_health)
-    health_memoryview.OnValueChanged = on_health_changed
-    if health_memoryview.Value ~= "??" then
-        prev_health = tonumber(health_memoryview.Value) or var_max_health
-        print("生命值: " .. prev_health)
+-- 定时器每1秒检查一次连接状态
+connectionCheckTimer = createTimer()
+connectionCheckTimer.setInterval(1000)
+connectionCheckTimer.onTimer = function()
+    local success, err = client:send("ping")  -- 发送ping以检查连接状态
+    if not success then
+        print("[Error] Connection lost. Attempting to reconnect...")
+        client:close()  -- 关闭当前连接
+        client = socket.tcp()  -- 创建新客户端
+        connectClient()  -- 尝试重新连接
     end
 end
-
-if syntaxcheck then
-    return
-end
-
-init_listener()
-
-{$asm}
 
 [DISABLE]
-{$lua}
-if syntaxcheck then
-    return
+if hpTimer ~= nil then
+    hpTimer.destroy()
+end
+if connectionCheckTimer ~= nil then
+    connectionCheckTimer.destroy()
 end
 
--- 清除监听
-for i = 0, AddressList.Count - 1 do
-    local memoryrecord = AddressList[i]
-    if memoryrecord.Description == varname_health or memoryrecord.Description == varname_max_health then
-        memoryrecord.OnValueChanged = nil
-    end
-end
-
-{$asm}
 </AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>357014</ID>
-          <Description>"角色信息 (这条和以下都不要勾选)"</Description>
-          <ShowAsSigned>0</ShowAsSigned>
-          <GroupHeader>1</GroupHeader>
-          <Address>pBase</Address>
-          <Offsets>
-            <Offset>0</Offset>
-            <Offset>38</Offset>
-            <Offset>18</Offset>
-            <Offset>28</Offset>
-            <Offset>18</Offset>
-          </Offsets>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>357000</ID>
-              <Description>"生命上限"</Description>
-              <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Float</VariableType>
-              <Address>+24</Address>
             </CheatEntry>
             <CheatEntry>
-              <ID>357002</ID>
-              <Description>"生命"</Description>
-              <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Float</VariableType>
-              <Address>+27C</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>357005</ID>
-              <Description>"体力上限"</Description>
-              <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Float</VariableType>
-              <Address>+40</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>356997</ID>
-              <Description>"体力"</Description>
-              <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Float</VariableType>
-              <Address>+298</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>357003</ID>
-              <Description>"法力上限"</Description>
-              <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Float</VariableType>
-              <Address>+28</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>356994</ID>
-              <Description>"法力"</Description>
-              <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Float</VariableType>
-              <Address>+280</Address>
+              <ID>358637</ID>
+              <Description>"base address"</Description>
+              <Options moHideChildren="1" moManualExpandCollapse="1"/>
+              <ShowAsSigned>1</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>pbase2</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
   </CheatEntries>
-  <UserdefinedSymbols>
-    <SymbolEntry>
-      <Name>tmp</Name>
-      <Address>7FFEEEEA0000</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>struct_update_status</Name>
-      <Address>1CCCBAE0000</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>randomvalue</Name>
-      <Address>6B450000</Address>
-    </SymbolEntry>
-  </UserdefinedSymbols>
+  <UserdefinedSymbols/>
 </CheatTable>
