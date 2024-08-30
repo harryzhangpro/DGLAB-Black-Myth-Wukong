@@ -26,7 +26,7 @@ pip install websockets
 
 5、启用[OTC](https://github.com/open-toys-controller/open-DGLAB-controller).
 
-6、打开娱乐模式，把dglab.py里面的IP地址修改为软件上显示的IP地址。
+6、打开娱乐模式，把***dglab.py***里面的IP地址修改为软件上显示的IP地址。
 
 ## 使用
 
