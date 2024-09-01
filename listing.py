@@ -30,7 +30,10 @@ def start_server():
                         delta = float(match.group(1))
                         hp = float(match.group(3))
 
-                        asyncio.run(send_message())
+                        if hp == 0:
+                            asyncio.run(send_message(100, 50))
+                        else:
+                            asyncio.run(send_message(50, 15))
                         
                         print(f"Received delta value: {delta}, HP value: {hp}")
                     else:
