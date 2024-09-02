@@ -149,6 +149,7 @@ if connectionCheckTimer ~= nil then
 end
 
 prev_hp = 0  -- 初始化prev_hp
+prev_max_hp = 0
 
 [ENABLE]
 
@@ -180,11 +181,12 @@ hpTimer.onTimer = function()
                 local pg5 = getAddressSafe('[[[[pbase2]+28]+18]+38]')
                 if pg5 ~= nil then
 
+                    local max_hp = readFloat('[[[[pbase2]+28]+18]+38]+24')
                     local now_hp = readFloat('[[[[pbase2]+28]+18]+38]+27C')
                     local delta = now_hp - prev_hp
                     prev_hp = now_hp
 
-                    if delta &lt; 0 then
+                    if delta &lt; 0 and prev_max_hp == max_hp then
                         local success, err = client:send("hit:" .. tostring(delta) .. "hp:" .. tostring(now_hp))  -- 尝试发送当前HP
                         if not success then
                             print("[Error] Send failed: " .. tostring(err))
@@ -195,6 +197,9 @@ hpTimer.onTimer = function()
                             print(string.format("[Event] Strike! delta %.2f now_hp %.2f", delta, now_hp))
                         end
                     end
+
+                    prev_max_hp = max_hp
+
                 end
             end
         end
