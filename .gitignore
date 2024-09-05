@@ -1,0 +1,5 @@
+# Ignore .pycache directories
+__pycache__/
+
+# Optionally ignore compiled Python files
+*.py[cod]
